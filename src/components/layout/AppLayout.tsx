@@ -35,8 +35,12 @@ const AppLayout = ({ children, requireAuth = true }: AppLayoutProps) => {
 
   return (
     <div className="flex min-h-screen bg-background">
-      {/* Sidebar (only show when authenticated) */}
-      {user && <Sidebar />}
+      {/* Only render sidebar when authenticated */}
+      {user && (
+        <div className="flex">
+          <Sidebar />
+        </div>
+      )}
       
       {/* Main content */}
       <div className="flex-1 flex flex-col">
