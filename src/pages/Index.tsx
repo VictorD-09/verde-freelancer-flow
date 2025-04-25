@@ -44,10 +44,10 @@ const Index = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
               <div className="space-y-6">
                 <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-                  {t('landing-hero-title', 'Take control of your finances with Verde')}
+                  {t('landing-hero-title')}
                 </h1>
                 <p className="text-lg text-gray-600">
-                  {t('landing-hero-description', 'The financial management tool designed specifically for freelancers. Track your income, expenses, and get insights to grow your business.')}
+                  {t('landing-hero-description')}
                 </p>
                 <div className="pt-4">
                   <Button size="lg" className="mr-4" onClick={() => navigate('/signup')}>
@@ -75,7 +75,7 @@ const Index = () => {
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-12">
-              {t('landing-features-title', 'Features designed for freelancers')}
+              {t('landing-features-title')}
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -85,7 +85,7 @@ const Index = () => {
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{t('expense-tracking')}</h3>
                 <p className="text-gray-600">
-                  {t('expense-tracking-description', 'Easily track and categorize your business expenses to stay organized and maximize tax deductions.')}
+                  {t('expense-tracking-description')}
                 </p>
               </div>
 
@@ -95,7 +95,7 @@ const Index = () => {
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{t('income-management')}</h3>
                 <p className="text-gray-600">
-                  {t('income-management-description', 'Monitor your revenue streams and keep track of all your freelance income in one place.')}
+                  {t('income-management-description')}
                 </p>
               </div>
 
@@ -105,7 +105,7 @@ const Index = () => {
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{t('financial-reports')}</h3>
                 <p className="text-gray-600">
-                  {t('financial-reports-description', 'Get detailed reports and visualizations to understand your financial health and make better decisions.')}
+                  {t('financial-reports-description')}
                 </p>
               </div>
             </div>
@@ -116,7 +116,7 @@ const Index = () => {
         <section className="py-16 bg-verde-50">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center mb-8">
-              {t('landing-benefits-title', 'Why choose Verde?')}
+              {t('landing-benefits-title')}
             </h2>
             
             <div className="max-w-3xl mx-auto space-y-6">
@@ -124,7 +124,7 @@ const Index = () => {
                 <CheckCircle className="h-6 w-6 text-verde-600 mt-1 mr-4 flex-shrink-0" />
                 <div>
                   <h3 className="font-semibold text-lg">{t('easy-to-use')}</h3>
-                  <p className="text-gray-600">{t('easy-to-use-description', 'Intuitive interface designed for freelancers, not accountants.')}</p>
+                  <p className="text-gray-600">{t('easy-to-use-description')}</p>
                 </div>
               </div>
               
@@ -132,7 +132,7 @@ const Index = () => {
                 <CheckCircle className="h-6 w-6 text-verde-600 mt-1 mr-4 flex-shrink-0" />
                 <div>
                   <h3 className="font-semibold text-lg">{t('time-saving')}</h3>
-                  <p className="text-gray-600">{t('time-saving-description', 'Spend less time on bookkeeping and more time on your business.')}</p>
+                  <p className="text-gray-600">{t('time-saving-description')}</p>
                 </div>
               </div>
               
@@ -140,7 +140,7 @@ const Index = () => {
                 <CheckCircle className="h-6 w-6 text-verde-600 mt-1 mr-4 flex-shrink-0" />
                 <div>
                   <h3 className="font-semibold text-lg">{t('financial-clarity')}</h3>
-                  <p className="text-gray-600">{t('financial-clarity-description', 'Understand your financial health at a glance with clear dashboards.')}</p>
+                  <p className="text-gray-600">{t('financial-clarity-description')}</p>
                 </div>
               </div>
               
@@ -148,7 +148,7 @@ const Index = () => {
                 <Globe className="h-6 w-6 text-verde-600 mt-1 mr-4 flex-shrink-0" />
                 <div>
                   <h3 className="font-semibold text-lg">{t('multilingual')}</h3>
-                  <p className="text-gray-600">{t('multilingual-description', 'Available in multiple languages including English and Portuguese.')}</p>
+                  <p className="text-gray-600">{t('multilingual-description')}</p>
                 </div>
               </div>
             </div>
@@ -159,10 +159,10 @@ const Index = () => {
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-3xl font-bold mb-6">
-              {t('landing-cta-title', 'Ready to take control of your finances?')}
+              {t('landing-cta-title')}
             </h2>
             <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-              {t('landing-cta-description', 'Join thousands of freelancers who are already managing their finances more effectively with Verde.')}
+              {t('landing-cta-description')}
             </p>
             <Button size="lg" onClick={() => navigate('/signup')}>
               {t('get-started-free')}

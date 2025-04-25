@@ -78,9 +78,19 @@ const AccountForm = () => {
       await new Promise(resolve => setTimeout(resolve, 500));
       
       if (accountToEdit) {
-        updateAccount(accountToEdit.id, data);
+        // Make sure all required fields are passed for updateAccount
+        updateAccount(accountToEdit.id, {
+          name: data.name,
+          type: data.type,
+          balance: data.balance,
+        });
       } else {
-        addAccount(data);
+        // Make sure all required fields are passed for addAccount
+        addAccount({
+          name: data.name,
+          type: data.type,
+          balance: data.balance,
+        });
       }
       
       navigate('/accounts');

@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { toast } from 'sonner';
 
-interface UserSettings {
+export interface UserSettings {
   currency: string;
   theme: 'light' | 'dark' | 'system';
   dateFormat: string;

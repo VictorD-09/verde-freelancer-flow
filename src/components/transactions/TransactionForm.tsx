@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -53,7 +52,6 @@ const TransactionForm = () => {
   } = useFinance();
   const [isLoading, setIsLoading] = useState(false);
   
-  // Find transaction if editing
   const transactionToEdit = id 
     ? transactions.find(transaction => transaction.id === id) 
     : undefined;
@@ -93,9 +91,25 @@ const TransactionForm = () => {
       await new Promise(resolve => setTimeout(resolve, 500));
       
       if (transactionToEdit) {
-        updateTransaction(transactionToEdit.id, data);
+        // Make sure all required fields are passed for updateTransaction
+        updateTransaction(transactionToEdit.id, {
+          type: data.type,
+          amount: data.amount,
+          date: data.date,
+          categoryId: data.categoryId,
+          accountId: data.accountId,
+          description: data.description,
+        });
       } else {
-        addTransaction(data);
+        // Make sure all required fields are passed for addTransaction
+        addTransaction({
+          type: data.type,
+          amount: data.amount,
+          date: data.date,
+          categoryId: data.categoryId,
+          accountId: data.accountId,
+          description: data.description,
+        });
       }
       
       navigate('/transactions');

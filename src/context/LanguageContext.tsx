@@ -90,6 +90,12 @@ export const translations = {
     'cancel': 'Cancel',
     'profile-updated': 'Profile updated successfully',
     'settings-saved': 'Settings saved successfully',
+    'general-settings': 'General Settings',
+    'date-format': 'Date Format',
+    'notification-description': 'Receive notifications about your finances',
+    'upgrade-message': 'Upgrade to access premium features',
+    'to-upgrade': 'To upgrade your account',
+    'connect-stripe': 'Connect your Stripe account',
     
     // Misc
     'loading': 'Loading...',
@@ -115,6 +121,10 @@ export const translations = {
     'yes': 'Yes',
     'no': 'No',
     'confirm': 'Confirm',
+    'all-rights-reserved': 'All rights reserved',
+    'privacy-policy': 'Privacy Policy',
+    'terms-of-service': 'Terms of Service',
+    'contact': 'Contact',
     
     // Subscription
     'subscription': 'Subscription',
@@ -130,6 +140,30 @@ export const translations = {
     'cancel-subscription': 'Cancel Subscription',
     'payment-processed': 'Payment processed successfully',
     'checkout': 'Checkout',
+    
+    // Landing page
+    'landing-hero-title': 'Take control of your finances with Verde',
+    'landing-hero-description': 'The financial management tool designed specifically for freelancers. Track your income, expenses, and get insights to grow your business.',
+    'get-started-free': 'Get Started for Free',
+    'learn-more': 'Learn More',
+    'landing-features-title': 'Features designed for freelancers',
+    'expense-tracking': 'Expense Tracking',
+    'expense-tracking-description': 'Easily track and categorize your business expenses to stay organized and maximize tax deductions.',
+    'income-management': 'Income Management',
+    'income-management-description': 'Monitor your revenue streams and keep track of all your freelance income in one place.',
+    'financial-reports': 'Financial Reports',
+    'financial-reports-description': 'Get detailed reports and visualizations to understand your financial health and make better decisions.',
+    'landing-benefits-title': 'Why choose Verde?',
+    'easy-to-use': 'Easy to Use',
+    'easy-to-use-description': 'Intuitive interface designed for freelancers, not accountants.',
+    'time-saving': 'Time Saving',
+    'time-saving-description': 'Spend less time on bookkeeping and more time on your business.',
+    'financial-clarity': 'Financial Clarity',
+    'financial-clarity-description': 'Understand your financial health at a glance with clear dashboards.',
+    'multilingual': 'Multilingual',
+    'multilingual-description': 'Available in multiple languages including English and Portuguese.',
+    'landing-cta-title': 'Ready to take control of your finances?',
+    'landing-cta-description': 'Join thousands of freelancers who are already managing their finances more effectively with Verde.'
   },
   pt: {
     // Auth
@@ -215,6 +249,12 @@ export const translations = {
     'cancel': 'Cancelar',
     'profile-updated': 'Perfil atualizado com sucesso',
     'settings-saved': 'Configurações salvas com sucesso',
+    'general-settings': 'Configurações Gerais',
+    'date-format': 'Formato de Data',
+    'notification-description': 'Receber notificações sobre suas finanças',
+    'upgrade-message': 'Faça upgrade para acessar recursos premium',
+    'to-upgrade': 'Para atualizar sua conta',
+    'connect-stripe': 'Conecte sua conta Stripe',
     
     // Misc
     'loading': 'Carregando...',
@@ -240,6 +280,10 @@ export const translations = {
     'yes': 'Sim',
     'no': 'Não',
     'confirm': 'Confirmar',
+    'all-rights-reserved': 'Todos os direitos reservados',
+    'privacy-policy': 'Política de Privacidade',
+    'terms-of-service': 'Termos de Serviço',
+    'contact': 'Contato',
     
     // Subscription
     'subscription': 'Assinatura',
@@ -255,6 +299,30 @@ export const translations = {
     'cancel-subscription': 'Cancelar Assinatura',
     'payment-processed': 'Pagamento processado com sucesso',
     'checkout': 'Finalizar Compra',
+    
+    // Landing page
+    'landing-hero-title': 'Assuma o controle de suas finanças com Verde',
+    'landing-hero-description': 'A ferramenta de gestão financeira projetada especificamente para freelancers. Acompanhe suas receitas, despesas e obtenha insights para fazer seu negócio crescer.',
+    'get-started-free': 'Comece Gratuitamente',
+    'learn-more': 'Saiba Mais',
+    'landing-features-title': 'Recursos projetados para freelancers',
+    'expense-tracking': 'Controle de Despesas',
+    'expense-tracking-description': 'Rastreie e categorize facilmente suas despesas comerciais para se manter organizado e maximizar as deduções fiscais.',
+    'income-management': 'Gestão de Receitas',
+    'income-management-description': 'Monitore suas fontes de receita e acompanhe toda a sua renda freelance em um só lugar.',
+    'financial-reports': 'Relatórios Financeiros',
+    'financial-reports-description': 'Obtenha relatórios detalhados e visualizações para entender sua saúde financeira e tomar melhores decisões.',
+    'landing-benefits-title': 'Por que escolher o Verde?',
+    'easy-to-use': 'Fácil de Usar',
+    'easy-to-use-description': 'Interface intuitiva projetada para freelancers, não para contadores.',
+    'time-saving': 'Economia de Tempo',
+    'time-saving-description': 'Gaste menos tempo com contabilidade e mais tempo em seu negócio.',
+    'financial-clarity': 'Clareza Financeira',
+    'financial-clarity-description': 'Entenda sua saúde financeira de relance com painéis claros.',
+    'multilingual': 'Multilíngue',
+    'multilingual-description': 'Disponível em vários idiomas, incluindo inglês e português.',
+    'landing-cta-title': 'Pronto para assumir o controle de suas finanças?',
+    'landing-cta-description': 'Junte-se a milhares de freelancers que já estão gerenciando suas finanças com mais eficiência com o Verde.'
   }
 };
 

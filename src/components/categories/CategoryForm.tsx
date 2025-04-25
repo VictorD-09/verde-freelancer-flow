@@ -60,9 +60,17 @@ const CategoryForm = () => {
       await new Promise(resolve => setTimeout(resolve, 500));
       
       if (categoryToEdit) {
-        updateCategory(categoryToEdit.id, data);
+        // Make sure all required fields are passed
+        updateCategory(categoryToEdit.id, {
+          name: data.name,
+          type: data.type,
+        });
       } else {
-        addCategory(data);
+        // Make sure all required fields are passed
+        addCategory({
+          name: data.name,
+          type: data.type,
+        });
       }
       
       navigate('/categories');
