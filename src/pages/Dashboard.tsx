@@ -10,10 +10,14 @@ const Dashboard = () => {
   const { user } = useAuth();
   const { t } = useLanguage();
   
+  const getUserName = () => {
+    return user?.user_metadata?.name || user?.email?.split('@')[0] || 'User';
+  };
+  
   return (
     <div className="space-y-6">
       <h1 className="text-3xl font-bold">
-        {t('welcome-back')}, {user?.name}!
+        {t('welcome-back')}, {getUserName()}!
       </h1>
       
       <BalanceCard />

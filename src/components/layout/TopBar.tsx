@@ -23,6 +23,16 @@ const TopBar = () => {
     setLanguage(language === 'en' ? 'pt' : 'en');
   };
 
+  // Get user name from user_metadata
+  const getUserName = () => {
+    return user?.user_metadata?.name || user?.email?.split('@')[0] || 'User';
+  };
+
+  const getInitials = () => {
+    const name = getUserName();
+    return name.charAt(0).toUpperCase();
+  };
+
   return (
     <header className="border-b py-2 px-4 md:px-6 bg-white">
       <div className="flex items-center justify-between">
@@ -43,7 +53,7 @@ const TopBar = () => {
               <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                 <Avatar className="h-8 w-8">
                   <AvatarFallback className="bg-primary text-primary-foreground">
-                    {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                    {getInitials()}
                   </AvatarFallback>
                 </Avatar>
               </Button>
@@ -51,7 +61,7 @@ const TopBar = () => {
             <DropdownMenuContent className="w-56" align="end" forceMount>
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">{user?.name}</p>
+                  <p className="text-sm font-medium leading-none">{getUserName()}</p>
                   <p className="text-xs leading-none text-muted-foreground">{user?.email}</p>
                 </div>
               </DropdownMenuLabel>
