@@ -1,10 +1,8 @@
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 import { Session, User } from '@supabase/supabase-js';
 
-// Extend the User type to include the user metadata we need
 interface UserWithProfile extends User {
   user_metadata: {
     name?: string;
@@ -28,7 +26,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // First set up the auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, currentSession) => {
         setSession(currentSession);
@@ -37,7 +34,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     );
 
-    // Then check for existing session
     supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
       setSession(currentSession);
       setUser(currentSession?.user as UserWithProfile ?? null);
@@ -71,19 +67,14 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const signUp = async (name: string, email: string, password: string) => {
     try {
       setLoading(true);
-      // Use the actual production URL for redirects
-      const redirectTo = window.location.hostname === "localhost" 
-        ? `${window.location.origin}/signin` 
-        : "https://verde-freelancer-flow.lovable.app/signin";
-        
       const { error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: {
-            name, // Make sure name is stored properly in user_metadata
+            name,
           },
-          emailRedirectTo: redirectTo,
+          emailRedirectTo: "https://verde-freelancer-flow.lovable.app/signin",
         },
       });
 
