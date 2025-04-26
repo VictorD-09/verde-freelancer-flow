@@ -71,13 +71,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const signUp = async (name: string, email: string, password: string) => {
     try {
       setLoading(true);
+      // Use the actual production URL for redirects
+      const redirectTo = window.location.hostname === "localhost" 
+        ? `${window.location.origin}/signin` 
+        : "https://verde-freelancer-flow.lovable.app/signin";
+        
       const { error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           data: {
-            name,
+            name, // Make sure name is stored properly in user_metadata
           },
+          emailRedirectTo: redirectTo,
         },
       });
 
