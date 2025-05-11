@@ -13,7 +13,7 @@ interface AppLayoutProps {
 
 const AppLayout = ({ children, requireAuth = true }: AppLayoutProps) => {
   const { user, loading } = useAuth();
-  
+
   // If auth is required and user isn't authenticated, redirect to signin
   if (requireAuth && !loading && !user) {
     return <Navigate to="/signin" replace />;

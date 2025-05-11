@@ -29,7 +29,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // Check if user is already signed in (on component mount)
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
+    console.log('Stored user:', storedUser); // Debugging line
     if (storedUser) {
+      console.log('Exist user:', storedUser); // Debugging line
       setUser(JSON.parse(storedUser));
     }
     setLoading(false);

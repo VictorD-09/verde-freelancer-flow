@@ -13,15 +13,7 @@ const SignIn = () => {
     <AppLayout requireAuth={false}>
       <div className="min-h-screen flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
-          <div className="text-center">
-            <div className="flex justify-center mb-4">
-              <Logo />
-            </div>
-            <h2 className="text-3xl font-extrabold">{t('sign-in')}</h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              {t('sign-in-to-continue')}
-            </p>
-          </div>
+         
           
           <div className="mt-8">
             <SignInForm />
