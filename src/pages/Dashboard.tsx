@@ -12,7 +12,7 @@ const Dashboard = () => {
   const { t } = useLanguage();
   
   const getUserName = () => {
-    return user?.user_metadata?.name || user?.email?.split('@')[0] || 'User';
+    return user?.user_metadata?.name || user?.eemail?.split('@')[0] || 'User';
   };
   
   return (

@@ -6,6 +6,7 @@ import { Session, User } from '@supabase/supabase-js';
 interface UserWithProfile extends User {
   user_metadata: {
     name?: string;
+    email?: string;
   };
 }
 
