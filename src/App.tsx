@@ -8,6 +8,7 @@ import { LanguageProvider } from "./context/LanguageContext";
 import { AuthProvider } from "./context/AuthContext";
 import { FinanceProvider } from "./context/FinanceContext";
 import { SettingsProvider } from "./context/SettingsContext";
+import AppLayout from "./components/layout/AppLayout";
 
 import Index from "./pages/Index";
 import SignIn from "./pages/SignIn";
@@ -40,19 +41,71 @@ const App = () => (
                   <Route path="/" element={<SignIn />} />
                   <Route path="/signin" element={<SignIn />} />
                   <Route path="/signup" element={<SignUp />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/transactions" element={<Transactions />} />
-                  <Route path="/transactions/new" element={<TransactionForm />} />
-                  <Route path="/transactions/edit/:id" element={<TransactionForm />} />
-                  <Route path="/accounts" element={<Accounts />} />
-                  <Route path="/accounts/new" element={<AccountForm />} />
-                  <Route path="/accounts/edit/:id" element={<AccountForm />} />
-                  <Route path="/categories" element={<Categories />} />
-                  <Route path="/categories/new" element={<CategoryForm />} />
-                  <Route path="/categories/edit/:id" element={<CategoryForm />} />
-                  <Route path="/settings" element={<Settings />} />
-                  <Route path="/reports" element={<Reports />} />
-                  <Route path="/subscription" element={<Subscription />} />
+                  <Route path="/dashboard" element={
+                    <AppLayout>
+                      <Dashboard />
+                    </AppLayout>
+                  } />
+                  <Route path="/transactions" element={
+                    <AppLayout>
+                      <Transactions />
+                    </AppLayout>
+                  } />
+                  <Route path="/transactions/new" element={
+                    <AppLayout>
+                      <TransactionForm />
+                    </AppLayout>
+                  } />
+                  <Route path="/transactions/edit/:id" element={
+                    <AppLayout>
+                      <TransactionForm />
+                    </AppLayout>
+                  } />
+                  <Route path="/accounts" element={
+                    <AppLayout>
+                      <Accounts />
+                    </AppLayout>
+                  } />
+                  <Route path="/accounts/new" element={
+                    <AppLayout>
+                      <AccountForm />
+                    </AppLayout>
+                  } />
+                  <Route path="/accounts/edit/:id" element={
+                    <AppLayout>
+                      <AccountForm />
+                    </AppLayout>
+                  } />
+                  <Route path="/categories" element={
+                    <AppLayout>
+                      <Categories />
+                    </AppLayout>
+                  } />
+                  <Route path="/categories/new" element={
+                    <AppLayout>
+                      <CategoryForm />
+                    </AppLayout>
+                  } />
+                  <Route path="/categories/edit/:id" element={
+                    <AppLayout>
+                      <CategoryForm />
+                    </AppLayout>
+                  } />
+                  <Route path="/settings" element={
+                    <AppLayout>
+                      <Settings />
+                    </AppLayout>
+                  } />
+                  <Route path="/reports" element={
+                    <AppLayout>
+                      <Reports />
+                    </AppLayout>
+                  } />
+                  <Route path="/subscription" element={
+                    <AppLayout>
+                      <Subscription />
+                    </AppLayout>
+                  } />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </BrowserRouter>

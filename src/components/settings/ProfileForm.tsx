@@ -38,10 +38,19 @@ const ProfileForm = () => {
   const { t } = useLanguage();
   const [isLoading, setIsLoading] = useState(false);
   
+  const getUserName = () => {
+    return user?.user_metadata?.name || user?.email?.split('@')[0] || '';
+  };
+
+  const getInitials = () => {
+    const name = getUserName();
+    return name.charAt(0).toUpperCase();
+  };
+  
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: user?.name || '',
+      name: getUserName(),
       email: user?.email || '',
       currentPassword: '',
       newPassword: '',
@@ -79,7 +88,7 @@ const ProfileForm = () => {
           <div className="flex flex-col items-center md:mb-0 mb-6">
             <Avatar className="w-24 h-24">
               <AvatarFallback className="text-3xl bg-primary text-primary-foreground">
-                {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                {getInitials()}
               </AvatarFallback>
             </Avatar>
             <Button variant="outline" className="mt-4">
