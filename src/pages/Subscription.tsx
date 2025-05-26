@@ -18,7 +18,8 @@ const Subscription = () => {
     loading, 
     createCheckout, 
     openCustomerPortal,
-    checkSubscription 
+    checkSubscription,
+    setupStripeProducts
   } = useSubscription();
 
   // Handle success/cancel from Stripe checkout
@@ -37,7 +38,7 @@ const Subscription = () => {
       name: 'Freemium',
       price: '$5.00',
       description: '7 dias grátis, depois $5/mês',
-      priceId: 'price_freemium_plan', // Substitua pelo Price ID real do Stripe
+      priceId: 'price_freemium_plan',
       icon: <Zap className="h-6 w-6" />,
       features: [
         'Transações ilimitadas',
@@ -53,7 +54,7 @@ const Subscription = () => {
       name: 'Standard',
       price: '$14.99',
       description: 'Plano intermediário',
-      priceId: 'price_standard_plan', // Substitua pelo Price ID real do Stripe
+      priceId: 'price_standard_plan',
       icon: <Star className="h-6 w-6" />,
       features: [
         'Tudo do Freemium',
@@ -70,7 +71,7 @@ const Subscription = () => {
       name: 'Premium',
       price: '$29.99',
       description: 'Plano completo',
-      priceId: 'price_premium_plan', // Substitua pelo Price ID real do Stripe
+      priceId: 'price_premium_plan',
       icon: <Crown className="h-6 w-6" />,
       features: [
         'Tudo do Standard',
@@ -89,6 +90,10 @@ const Subscription = () => {
     createCheckout(priceId);
   };
 
+  const handleSetupProducts = () => {
+    setupStripeProducts();
+  };
+
   const isCurrentPlan = (planId: string) => {
     if (!subscribed && planId === 'free') return true;
     return subscription_tier === planId;
@@ -101,6 +106,12 @@ const Subscription = () => {
         <p className="text-xl text-muted-foreground">
           Gerencie suas finanças com o plano ideal para você
         </p>
+      </div>
+
+      <div className="flex justify-center mb-6">
+        <Button onClick={handleSetupProducts} variant="outline">
+          Configurar Produtos Stripe
+        </Button>
       </div>
 
       {subscribed && (
@@ -205,6 +216,9 @@ const Subscription = () => {
           </p>
           <p>
             • Os pagamentos são processados de forma segura através do Stripe
+          </p>
+          <p>
+            • Os produtos são criados automaticamente no Stripe quando necessário
           </p>
         </div>
       </div>

@@ -49,6 +49,30 @@ export const useSubscription = () => {
     }
   };
 
+  const setupStripeProducts = async () => {
+    if (!user || !session) {
+      toast.error('Please sign in to setup products');
+      return null;
+    }
+
+    try {
+      const { data, error } = await supabase.functions.invoke('setup-stripe-products', {
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      });
+
+      if (error) throw error;
+      
+      toast.success('Produtos Stripe configurados com sucesso!');
+      return data.products;
+    } catch (error) {
+      console.error('Error setting up Stripe products:', error);
+      toast.error('Erro ao configurar produtos Stripe');
+      return null;
+    }
+  };
+
   const createCheckout = async (priceId: string) => {
     if (!user || !session) {
       toast.error('Please sign in to subscribe');
@@ -56,8 +80,25 @@ export const useSubscription = () => {
     }
 
     try {
+      // First setup products if needed
+      const products = await setupStripeProducts();
+      if (!products) return;
+
+      // Find the correct price ID from the created products
+      let actualPriceId = priceId;
+      if (priceId === 'price_freemium_plan') {
+        const freemiumProduct = products.find((p: any) => p.product === 'Freemium');
+        if (freemiumProduct) actualPriceId = freemiumProduct.priceId;
+      } else if (priceId === 'price_standard_plan') {
+        const standardProduct = products.find((p: any) => p.product === 'Standard');
+        if (standardProduct) actualPriceId = standardProduct.priceId;
+      } else if (priceId === 'price_premium_plan') {
+        const premiumProduct = products.find((p: any) => p.product === 'Premium');
+        if (premiumProduct) actualPriceId = premiumProduct.priceId;
+      }
+
       const { data, error } = await supabase.functions.invoke('create-checkout', {
-        body: { priceId },
+        body: { priceId: actualPriceId },
         headers: {
           Authorization: `Bearer ${session.access_token}`,
         },
@@ -107,5 +148,6 @@ export const useSubscription = () => {
     checkSubscription,
     createCheckout,
     openCustomerPortal,
+    setupStripeProducts,
   };
 };
