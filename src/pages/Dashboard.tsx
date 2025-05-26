@@ -16,6 +16,7 @@ const Dashboard = () => {
   };
 
   return (
+    <AppLayout>
       <div className="space-y-6">
         <h1 className="text-3xl font-bold">
           {t('welcome-back')}, {getUserName()}!
@@ -31,6 +32,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+    </AppLayout>
   );
 };
 
