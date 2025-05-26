@@ -27,6 +27,8 @@ serve(async (req) => {
       throw new Error("Price ID is required");
     }
 
+    logStep("Price ID received", { priceId });
+
     const supabaseClient = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
@@ -58,7 +60,90 @@ serve(async (req) => {
       logStep("Creating new customer");
     }
 
-    // Define trial period based on price ID (7 days for freemium plan)
+    // Create direct price mapping for our known plans
+    let actualPriceId = priceId;
+    
+    // Map our plan IDs to create products if needed
+    if (priceId === 'price_freemium_plan' || priceId === 'price_standard_plan' || priceId === 'price_premium_plan') {
+      // Create products first
+      const products = [
+        {
+          name: "Freemium",
+          description: "Plano Freemium com 7 dias grátis",
+          amount: 500, // $5.00
+          interval: "month",
+          trial_days: 7,
+          planId: 'price_freemium_plan'
+        },
+        {
+          name: "Standard", 
+          description: "Plano Standard intermediário",
+          amount: 1499, // $14.99
+          interval: "month",
+          planId: 'price_standard_plan'
+        },
+        {
+          name: "Premium",
+          description: "Plano Premium completo", 
+          amount: 2999, // $29.99
+          interval: "month",
+          planId: 'price_premium_plan'
+        }
+      ];
+
+      const selectedProduct = products.find(p => p.planId === priceId);
+      if (selectedProduct) {
+        logStep(`Creating product and price for ${selectedProduct.name}`);
+        
+        // Check if product already exists
+        const existingProducts = await stripe.products.list({
+          limit: 100,
+        });
+        
+        let product = existingProducts.data.find(p => p.name === selectedProduct.name);
+        
+        if (!product) {
+          product = await stripe.products.create({
+            name: selectedProduct.name,
+            description: selectedProduct.description,
+            type: 'service',
+          });
+          logStep(`Created product: ${product.name}`, { productId: product.id });
+        }
+
+        // Check if price already exists for this product
+        const existingPrices = await stripe.prices.list({
+          product: product.id,
+          limit: 100,
+        });
+        
+        let price = existingPrices.data.find(p => 
+          p.unit_amount === selectedProduct.amount && 
+          p.recurring?.interval === selectedProduct.interval
+        );
+
+        if (!price) {
+          price = await stripe.prices.create({
+            product: product.id,
+            unit_amount: selectedProduct.amount,
+            currency: 'usd',
+            recurring: {
+              interval: selectedProduct.interval,
+            },
+          });
+          logStep(`Created price for ${product.name}`, { 
+            priceId: price.id, 
+            amount: selectedProduct.amount 
+          });
+        }
+
+        actualPriceId = price.id;
+      }
+    }
+
+    logStep("Using price ID for checkout", { actualPriceId });
+
+    // Define trial period based on plan
     const trialPeriodDays = priceId === 'price_freemium_plan' ? 7 : undefined;
 
     const session = await stripe.checkout.sessions.create({
@@ -66,7 +151,7 @@ serve(async (req) => {
       customer_email: customerId ? undefined : user.email,
       line_items: [
         {
-          price: priceId,
+          price: actualPriceId,
           quantity: 1,
         },
       ],

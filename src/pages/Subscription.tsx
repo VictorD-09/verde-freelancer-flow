@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
 import { useSubscription } from '@/hooks/useSubscription';
@@ -18,17 +17,16 @@ const Subscription = () => {
     loading, 
     createCheckout, 
     openCustomerPortal,
-    checkSubscription,
-    setupStripeProducts
+    checkSubscription
   } = useSubscription();
 
   // Handle success/cancel from Stripe checkout
   useEffect(() => {
     if (searchParams.get('success')) {
-      toast.success('Subscription activated successfully!');
+      toast.success('Assinatura ativada com sucesso!');
       checkSubscription();
     } else if (searchParams.get('canceled')) {
-      toast.info('Subscription setup was canceled');
+      toast.info('Configuração da assinatura foi cancelada');
     }
   }, [searchParams, checkSubscription]);
 
@@ -87,11 +85,8 @@ const Subscription = () => {
   ];
 
   const handleSubscribe = (priceId: string) => {
+    console.log('Subscribing to plan:', priceId);
     createCheckout(priceId);
-  };
-
-  const handleSetupProducts = () => {
-    setupStripeProducts();
   };
 
   const isCurrentPlan = (planId: string) => {
@@ -106,12 +101,6 @@ const Subscription = () => {
         <p className="text-xl text-muted-foreground">
           Gerencie suas finanças com o plano ideal para você
         </p>
-      </div>
-
-      <div className="flex justify-center mb-6">
-        <Button onClick={handleSetupProducts} variant="outline">
-          Configurar Produtos Stripe
-        </Button>
       </div>
 
       {subscribed && (

@@ -35,7 +35,10 @@ export const useSubscription = () => {
         },
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error checking subscription:', error);
+        throw error;
+      }
 
       setSubscriptionStatus({
         subscribed: data.subscribed || false,
@@ -49,74 +52,47 @@ export const useSubscription = () => {
     }
   };
 
-  const setupStripeProducts = async () => {
-    if (!user || !session) {
-      toast.error('Please sign in to setup products');
-      return null;
-    }
-
-    try {
-      const { data, error } = await supabase.functions.invoke('setup-stripe-products', {
-        headers: {
-          Authorization: `Bearer ${session.access_token}`,
-        },
-      });
-
-      if (error) throw error;
-      
-      toast.success('Produtos Stripe configurados com sucesso!');
-      return data.products;
-    } catch (error) {
-      console.error('Error setting up Stripe products:', error);
-      toast.error('Erro ao configurar produtos Stripe');
-      return null;
-    }
-  };
-
   const createCheckout = async (priceId: string) => {
     if (!user || !session) {
-      toast.error('Please sign in to subscribe');
+      toast.error('Por favor, faça login para assinar');
       return;
     }
 
     try {
-      // First setup products if needed
-      const products = await setupStripeProducts();
-      if (!products) return;
-
-      // Find the correct price ID from the created products
-      let actualPriceId = priceId;
-      if (priceId === 'price_freemium_plan') {
-        const freemiumProduct = products.find((p: any) => p.product === 'Freemium');
-        if (freemiumProduct) actualPriceId = freemiumProduct.priceId;
-      } else if (priceId === 'price_standard_plan') {
-        const standardProduct = products.find((p: any) => p.product === 'Standard');
-        if (standardProduct) actualPriceId = standardProduct.priceId;
-      } else if (priceId === 'price_premium_plan') {
-        const premiumProduct = products.find((p: any) => p.product === 'Premium');
-        if (premiumProduct) actualPriceId = premiumProduct.priceId;
-      }
-
+      setSubscriptionStatus(prev => ({ ...prev, loading: true }));
+      
+      console.log('Creating checkout for priceId:', priceId);
+      
       const { data, error } = await supabase.functions.invoke('create-checkout', {
-        body: { priceId: actualPriceId },
+        body: { priceId },
         headers: {
           Authorization: `Bearer ${session.access_token}`,
+          'Content-Type': 'application/json',
         },
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error creating checkout:', error);
+        throw error;
+      }
 
-      // Open Stripe checkout in a new tab
-      window.open(data.url, '_blank');
+      if (data && data.url) {
+        console.log('Checkout URL received:', data.url);
+        // Open Stripe checkout in the same tab
+        window.location.href = data.url;
+      } else {
+        throw new Error('No checkout URL received');
+      }
     } catch (error) {
       console.error('Error creating checkout:', error);
-      toast.error('Failed to create checkout session');
+      toast.error('Erro ao criar sessão de checkout');
+      setSubscriptionStatus(prev => ({ ...prev, loading: false }));
     }
   };
 
   const openCustomerPortal = async () => {
     if (!user || !session) {
-      toast.error('Please sign in to manage subscription');
+      toast.error('Por favor, faça login para gerenciar assinatura');
       return;
     }
 
@@ -133,21 +109,20 @@ export const useSubscription = () => {
       window.open(data.url, '_blank');
     } catch (error) {
       console.error('Error opening customer portal:', error);
-      toast.error('Failed to open customer portal');
+      toast.error('Erro ao abrir portal do cliente');
     }
   };
 
   useEffect(() => {
-    if (user) {
+    if (user && session) {
       checkSubscription();
     }
-  }, [user]);
+  }, [user, session]);
 
   return {
     ...subscriptionStatus,
     checkSubscription,
     createCheckout,
     openCustomerPortal,
-    setupStripeProducts,
   };
 };
