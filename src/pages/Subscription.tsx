@@ -37,7 +37,7 @@ const Subscription = () => {
       name: 'Freemium',
       price: '$5.00',
       description: '7 dias grátis, depois $5/mês',
-      priceId: 'price_freemium_plan', // You'll need to create this in Stripe
+      priceId: 'price_freemium_plan', // Substitua pelo Price ID real do Stripe
       icon: <Zap className="h-6 w-6" />,
       features: [
         'Transações ilimitadas',
@@ -53,7 +53,7 @@ const Subscription = () => {
       name: 'Standard',
       price: '$14.99',
       description: 'Plano intermediário',
-      priceId: 'price_standard_plan', // You'll need to create this in Stripe
+      priceId: 'price_standard_plan', // Substitua pelo Price ID real do Stripe
       icon: <Star className="h-6 w-6" />,
       features: [
         'Tudo do Freemium',
@@ -70,7 +70,7 @@ const Subscription = () => {
       name: 'Premium',
       price: '$29.99',
       description: 'Plano completo',
-      priceId: 'price_premium_plan', // You'll need to create this in Stripe
+      priceId: 'price_premium_plan', // Substitua pelo Price ID real do Stripe
       icon: <Crown className="h-6 w-6" />,
       features: [
         'Tudo do Standard',

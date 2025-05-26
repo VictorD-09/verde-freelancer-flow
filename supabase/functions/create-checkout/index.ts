@@ -29,7 +29,8 @@ serve(async (req) => {
 
     const supabaseClient = createClient(
       Deno.env.get("SUPABASE_URL") ?? "",
-      Deno.env.get("SUPABASE_ANON_KEY") ?? ""
+      Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
+      { auth: { persistSession: false } }
     );
 
     const authHeader = req.headers.get("Authorization");
@@ -57,6 +58,9 @@ serve(async (req) => {
       logStep("Creating new customer");
     }
 
+    // Define trial period based on price ID (7 days for freemium plan)
+    const trialPeriodDays = priceId === 'price_freemium_plan' ? 7 : undefined;
+
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       customer_email: customerId ? undefined : user.email,
@@ -67,12 +71,15 @@ serve(async (req) => {
         },
       ],
       mode: "subscription",
+      subscription_data: trialPeriodDays ? {
+        trial_period_days: trialPeriodDays,
+      } : undefined,
       success_url: `${req.headers.get("origin")}/subscription?success=true`,
       cancel_url: `${req.headers.get("origin")}/subscription?canceled=true`,
       allow_promotion_codes: true,
     });
 
-    logStep("Checkout session created", { sessionId: session.id });
+    logStep("Checkout session created", { sessionId: session.id, trialDays: trialPeriodDays });
 
     return new Response(JSON.stringify({ url: session.url }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
